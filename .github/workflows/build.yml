@@ -1,39 +1,39 @@
-name: build-ZTE-E8820S
+名称： build-ZTE-E8820S
 
-on: 
-  #push:
-   # branches:
-   # - "*"
-  workflow_dispatch:
+在：
+  ＃推：
+   # 枢纽：
+   # - “*”
+  工作流程_调度：工作流程_调度：工作流程_调度：工作流程_调度：
 
-jobs:
-  build:
-    runs-on: ubuntu-22.04
-    strategy:
-      matrix:
-        target: ZTE-E8820S]
-        toolchain: [mipsel-linux-musl]
-    steps:
-      - uses: actions/checkout@v3
-        with:
-          ref: dev
-      - uses: hendrikmuhs/ccache-action@v1.2
-        with:
-          key: ${{ matrix.target }}-${{ matrix.toolchain }}
-      - uses: actions/setup-go@v4
-        with:
-          go-version: '1.23.0'
-          check-latest: true
-          cache: false
-      - uses: actions/setup-node@v3
-        with:
-          node-version: 20
-          check-latest: true
-      - name: Prepare
-        run: |
-          sudo apt update
+职位：
+  建造者：
+    运行系统： ubuntu-22.04
+    战略：
+      矩阵：
+        目标：[ 中兴-E8820S ]
+        工具链：[ mipsel-linux-musl ]
+    步骤：
+      -使用： actions/checkout@v3
+        和：
+          参考：开发
+      -使用： hendrikmuhs/ccache-action@v1.2
+        和：
+          关键词： $ {  {矩阵.目标}  } -$ {  {矩阵.工具链}  }
+      -使用： actions/setup-go@v4
+        和：
+          去版本：'1.23.0'
+          检查最新：true
+          服务器：假
+      -使用： actions/setup-node@v3
+        和：
+          节点版本：20
+          检查最新：true
+      -名称：准备
+        运行：|
+          须藤apt更新
           sudo apt install libtool-bin gperf python3-docutils autopoint gettext ccache
-      - name: Build
+      -名称：构建
         run: |
           make ${{ matrix.target }} TOOLCHAIN=${{ matrix.toolchain }}
       - uses: actions/upload-artifact@v4
